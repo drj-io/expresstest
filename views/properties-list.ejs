@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <% include partials/head.ejs %>
+  </head>
+  <body>
+    <% include partials/header.ejs %>  
+    
+
+    <h1>Property List</h1>
+
+    <table>
+      <% properties.forEach(function(e,i){ %>
+        
+
+        <tr>
+            <td><%= e.address %></td>
+            <td><%= e.rating %></td>
+            <td><%= e.phonenumber %></td>
+            <td>Edit</td>
+            <td>View</td>
+            <td>Delete</td>
+        </tr>
+
+
+
+    <% }) %>
+    </table>
+
+    <% include partials/footer.ejs %>
+
+  </body>
+</html>

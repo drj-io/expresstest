@@ -1,3 +1,39 @@
+/*
+
+    needed:
+
+
+    
+
+    GET  /user = login page
+    POST /user/login = process login
+
+    AUTHENTICATED
+
+    GET / = home page 
+    GET /properties/list           [html]
+    GET /properties/view/#         [html]
+    DELETE /properties/delete/#       [form process]
+    GET /properties/edit/#         [html]
+    POST /properties/edit/#         [form process]
+
+    GET /properties/create         [create html]
+    POST /properties/create         [create process]
+
+    GET /user/list
+    GET /user/edit/#
+    POST /user/edit/#
+    DELETE /user/delete/#
+
+
+
+
+
+
+
+*/
+
+
 var express = require('express');
 var bodyParser = require('body-parser');
 var app = express();
@@ -31,12 +67,30 @@ var users =
     ];
 
 
+var properties = [
+        {
+            address: '504 E Eisenhower Blvd, Loveland, CO 80513',
+            phone: '800-541-3278',
+            rating: 5,
+
+        },
+        {
+            address: '4616 S Shields St, Fort Collins, CO 80526',
+            phone: '970-226-2500',
+            rating: 5
+        }
+
+
+
+];
+
+
 app.set('view engine', 'ejs');
 
 app.get('/', function(req,res){
         if(checkUser(req,res)){ 
 
-            res.send("you're good!");
+            res.render('home',{ user:req.session.user});
 
         }
         else{
@@ -44,12 +98,53 @@ app.get('/', function(req,res){
         }
 
    
+});
+
+
+
+/*
+
+######  ######  ####### ######  ####### ######  ####### #     # 
+#     # #     # #     # #     # #       #     #    #     #   #  
+#     # #     # #     # #     # #       #     #    #      # #   
+######  ######  #     # ######  #####   ######     #       #    
+#       #   #   #     # #       #       #   #      #       #    
+#       #    #  #     # #       #       #    #     #       #    
+#       #     # ####### #       ####### #     #    #       #    
+
+
+*/
+
+
+
+
+app.get('/properties/list', function(req,res){
+    res.render('properties-list', {properties: properties })
 })
 
 
+/*
+
+
+
+#     #  #####  ####### ######  
+#     # #     # #       #     # 
+#     # #       #       #     # 
+#     #  #####  #####   ######  
+#     #       # #       #   #   
+#     # #     # #       #    #  
+ #####   #####  ####### #     # 
+
+
+
+*/
+
 app.get('/user', function(req, res) {
-  res.render('login', { title: 'The index page!', body: "" })
+  res.render('login', { title: 'The index page!' })
 });
+
+
+
 
 app.post('/user/login',function(req,res){
     console.log( req.body.username, req.body.password);
@@ -70,10 +165,10 @@ app.post('/user/login',function(req,res){
         
         req.session.user = validUser;
         
-        res.send('you are authenticated, '+ validUser)
+        res.redirect('/');
     }
     else{
-        res.redirect('/user')
+        res.redirect('/user?error=401')
     }
 
 
