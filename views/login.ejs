@@ -11,14 +11,25 @@
     <![endif]-->
 
     <!-- styles -->
-    <link href="stylesheets/style.css" rel="stylesheet">
-
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/styles.css" rel="stylesheet">
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.js"></script>
   </head>
   <body>
-    <% include partials/header.ejs %>
-
-
-    <%- body %>
+  
+    <div id="loginbox">
+        <div class="input-group">
+          <span class="input-group-addon">@</span>
+          <input type="text" class="form-control" placeholder="Username">
+        </div>
+        <div class="input-group">
+          <span class="input-group-addon">@</span>
+          <input type="password" class="form-control" placeholder="Password">
+        </div>
+    </div>
+    
 
     <% include partials/footer.ejs %>
 

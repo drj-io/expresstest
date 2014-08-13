@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/drj-io/expresstest",
   "dependencies": {
+    "body-parser": "^1.6.3",
     "ejs": "^1.0.0",
     "express": "^4.8.3"
   }
