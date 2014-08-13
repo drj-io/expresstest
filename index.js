@@ -119,7 +119,31 @@ app.get('/', function(req,res){
 
 
 app.get('/properties/list', function(req,res){
-    res.render('properties-list', {properties: properties })
+    res.render('properties-list', {properties: properties } )
+})
+
+
+app.get('/properties/create', function(req,res){
+    res.render('properties-form', {type: 'create'})
+})
+
+app.post('/properties/create',function(req,res){
+    properties.push({
+         address: req.body.address,
+            phone: req.body.phone,
+            rating: req.body.rating,
+    });
+
+    res.redirect('/properties/list');
+})
+
+
+app.get('/properties/edit/:id', function(req,res){
+    res.render('properties-form', {type: 'update'})
+})
+
+app.post('/properties/edit/:id', function(req, res){
+
 })
 
 

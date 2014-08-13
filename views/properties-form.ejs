@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <% include partials/head.ejs %>
+  </head>
+  <body>
+    <% include partials/header.ejs %>  
+    
+    <form action="/properties/create" method="post">
+        <div>
+            <label>Address</label>
+            <input name="address" />
+        </div>
+
+        <div>
+            <label>Phone Number</label>
+            <input name="phone" />
+        </div>
+        <div>
+            <label>Rating</label>
+            <input name="rating">
+        </div>
+        <div>
+            <input type="submit" style="text-align: center">
+        </div>
+    </form>
+  
+
+    <% include partials/footer.ejs %>
+
+  </body>
+</html>
