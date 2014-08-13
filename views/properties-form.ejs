@@ -6,19 +6,42 @@
   <body>
     <% include partials/header.ejs %>  
     
-    <form action="/properties/create" method="post">
+        
+        <% if (type == "update") {%> 
+           <form action="/properties/edit/<%= propertyId %>" method="post">
+        <% } 
+            else {
+        %>
+
+            <form action="/properties/create" method="post"> 
+        <%
+            }
+        %>
         <div>
             <label>Address</label>
-            <input name="address" />
+            <input name="address"
+                    <% if (type == "update") {%> 
+                        value="<%= properties[propertyId].address %>"
+                    <% } %> < 
+             />
         </div>
 
         <div>
             <label>Phone Number</label>
-            <input name="phone" />
+            <input name="phone" 
+                    <% if (type == "update") {%> 
+                        value="<%= properties[propertyId].phone %>"
+                    <% } %> < 
+                    />
         </div>
         <div>
             <label>Rating</label>
-            <input name="rating">
+            <input name="rating" 
+                <% if (type == "update") {%> 
+                        value="<%= properties[propertyId].rating %>"
+                    <% } %> < 
+
+            />
         </div>
         <div>
             <input type="submit" style="text-align: center">

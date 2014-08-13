@@ -1,9 +1,6 @@
 /*
-
     needed:
-
-
-    
+ 
 
     GET  /user = login page
     POST /user/login = process login
@@ -13,7 +10,7 @@
     GET / = home page 
     GET /properties/list           [html]
     GET /properties/view/#         [html]
-    DELETE /properties/delete/#       [form process]
+    get /properties/delete/#       [form process]
     GET /properties/edit/#         [html]
     POST /properties/edit/#         [form process]
 
@@ -23,12 +20,7 @@
     GET /user/list
     GET /user/edit/#
     POST /user/edit/#
-    DELETE /user/delete/#
-
-
-
-
-
+    get /user/delete/#
 
 
 */
@@ -100,8 +92,6 @@ app.get('/', function(req,res){
    
 });
 
-
-
 /*
 
 ######  ######  ####### ######  ####### ######  ####### #     # 
@@ -112,22 +102,21 @@ app.get('/', function(req,res){
 #       #    #  #     # #       #       #    #     #       #    
 #       #     # ####### #       ####### #     #    #       #    
 
-
 */
 
-
-
-
 app.get('/properties/list', function(req,res){
+    user = checkUser(req,res);
     res.render('properties-list', {properties: properties } )
 })
 
 
 app.get('/properties/create', function(req,res){
+    user = checkUser(req,res);
     res.render('properties-form', {type: 'create'})
 })
 
 app.post('/properties/create',function(req,res){
+    user = checkUser(req,res);
     properties.push({
          address: req.body.address,
             phone: req.body.phone,
@@ -139,11 +128,25 @@ app.post('/properties/create',function(req,res){
 
 
 app.get('/properties/edit/:id', function(req,res){
-    res.render('properties-form', {type: 'update'})
+    user = checkUser(req,res);
+    res.render('properties-form', {type: 'update', propertyId: req.params.id, properties: properties });
 })
 
 app.post('/properties/edit/:id', function(req, res){
+    user = checkUser(req,res);
+    properties[req.params.id] = {
+            address: req.body.address,
+            phone: req.body.phone,
+            rating: req.body.rating,
+    }
 
+    res.redirect('/properties/list')
+})
+
+app.get('/properties/delete/:id', function(req,res){
+    user = checkUser(req,res);
+    properties.splice(req.params.id,1);
+    res.redirect('/properties/list');
 })
 
 
@@ -217,6 +220,6 @@ function checkUser(req,res){
         return req.session.user;
     }
     else{
-        return false;
+        res.redirect('/user')
     }
 }
