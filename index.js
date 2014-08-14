@@ -80,15 +80,10 @@ var properties = [
 app.set('view engine', 'ejs');
 
 app.get('/', function(req,res){
-        if(checkUser(req,res)){ 
 
-            res.render('home',{ user:req.session.user});
+        checkUser(req,res) 
 
-        }
-        else{
-            res.send("you're not logged in");
-        }
-
+        res.render('home',{ user:req.session.user});
    
 });
 
@@ -150,6 +145,11 @@ app.get('/properties/delete/:id', function(req,res){
 })
 
 
+app.get('/properties/view/:id', function(req,res){
+    user = checkUser(req,res);
+    res.render('properties-view',{property: properties[req.params.id]})
+})
+ 
 /*
 
 
@@ -220,6 +220,7 @@ function checkUser(req,res){
         return req.session.user;
     }
     else{
-        res.redirect('/user')
+        res.redirect('/user');
+        res.end();
     }
 }
